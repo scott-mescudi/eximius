@@ -1,6 +1,6 @@
 package models
 
-type ParsedDocument struct {
+type Document struct {
 	Url string
 	Title string
 	Description string
