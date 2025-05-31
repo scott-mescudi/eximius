@@ -2,11 +2,11 @@ package parser
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/scott-mescudi/eximius/recluse/pkg/models"
 )
-
 
 func TestParser(t *testing.T) {
 	var d = &models.Document{
@@ -16,7 +16,21 @@ func TestParser(t *testing.T) {
 
 	ParseDocument(d)
 
-	fmt.Println(d.Text, d.Description)
+	tokens := map[string]int{}
+
+	for w := range strings.SplitSeq(d.Text, " ") {
+		trimmed := strings.TrimSpace(w)
+		if trimmed != ""  {
+			tokens[trimmed]++
+		}
+	}
+
+
+	for k, v := range tokens {
+		if v > 3 {
+			fmt.Printf("%v - %v\n", k, v)
+		}
+	}
 }
 
 func BenchmarkParser(b *testing.B) {
@@ -2122,5 +2136,3 @@ additional terms may apply. By using this site, you agree to the <a href="https:
 </body>
 </html>
 `
-
-
