@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"strings"
 
-	"github.com/scott-mescudi/eximius/spider/pkg/models"
+	"github.com/scott-mescudi/eximius/recluse/pkg/models"
 	"golang.org/x/net/html"
 )
 
@@ -67,18 +67,18 @@ func extractTitleAndDescription(n *html.Node) (title, description string) {
 	return
 }
 
-func ParseDocument(document *models.Document) {
+func ParseDocument(document *models.Document)  {
 	dt, _ := html.Parse(bytes.NewReader([]byte(document.Text)))
 	title, description := extractTitleAndDescription(dt)
 	document.Title = title
-	
-	text := extractText(dt)
+
 	if description == "" {
-		document.Description = text[256:2560]
+		document.Description = ""
 	} else {
 		document.Description = description
 	}
 
+	text := extractText(dt)
 	document.Text = replacer.Replace(strings.ToLower(text))
 	document.Text = replacer.Replace(document.Text)
 }

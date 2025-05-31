@@ -4,8 +4,32 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/scott-mescudi/eximius/spider/pkg/models"
+	"github.com/scott-mescudi/eximius/recluse/pkg/models"
 )
+
+
+func TestParser(t *testing.T) {
+	var d = &models.Document{
+		Url:  "iusrhe",
+		Text: document,
+	}
+
+	ParseDocument(d)
+
+	fmt.Println(d.Text, d.Description)
+}
+
+func BenchmarkParser(b *testing.B) {
+	var d = &models.Document{
+		Url:  "iusrhe",
+		Text: document,
+	}
+
+	for b.Loop() {
+		ParseDocument(d)
+
+	}
+}
 
 var document = `
 <!DOCTYPE html>
@@ -2099,25 +2123,4 @@ additional terms may apply. By using this site, you agree to the <a href="https:
 </html>
 `
 
-func TestParser(t *testing.T) {
-    var d = &models.Document{
-        Url: "iusrhe",
-        Text: document,
-    }
 
-    ParseDocument(d)
-
-	fmt.Println(d.Title, d.Description)
-}
-
-func BenchmarkParser(b *testing.B) {
-    var d = &models.Document{
-        Url: "iusrhe",
-        Text: document,
-    }
-
-	for b.Loop() {
-		ParseDocument(d)
-
-	}
-}
