@@ -1,4 +1,4 @@
-package internal
+package parser
 
 import (
 	"fmt"
@@ -149,3 +149,5 @@ func BenchmarkParser(b *testing.B) {
 
 	}
 }
+
+// BenchmarkParser-10         31772             37498 ns/op           53545 B/op        467 allocs/op
